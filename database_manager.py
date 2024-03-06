@@ -50,6 +50,7 @@ def update_item(user_id, item, quantity, in_add_mode=True):
 
 # 定义一个函数，根据用户id查询物品数量和总和
 def query_item(user_id,item):
+    print(type(user_id))
     # 查询表中该用户拥有的所有物品的数量
     cur.execute('''
         SELECT * FROM items
