@@ -57,4 +57,4 @@ def query_item(user_id,item):
         ''', (user_id, item))
     # 获取查询结果
     result = cur.fetchone()
-    for i in result:print(result)
+    if result:print(result)
