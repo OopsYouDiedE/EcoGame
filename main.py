@@ -107,7 +107,7 @@ class CoreEconomySystem(interactions.Extension):
     @module_base.subcommand("give", sub_cmd_description="Provide a specific quantity of items to a user.")
     @interactions.check(interactions.is_owner())
     @interactions.slash_option(
-        name="id",
+        name="user_id",
         description="id of the member.",
         required=True,
         opt_type=interactions.OptionType.USER
