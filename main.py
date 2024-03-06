@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '''
 import sqlite3
-import database_manager
+import github_d_com__OopsYouDiedE_s_EcoGame.database_manager
 import interactions
 from interactions.api.events import MemberRemove, MessageCreate
 from interactions.ext.paginators import Paginator
@@ -38,7 +38,7 @@ import aioshutil
 from aiocsv import AsyncReader, AsyncDictReader, AsyncWriter, AsyncDictWriter
 
 class CoreEconomySystem(interactions.Extension):
-    import github_d_com__OopsYouDiedE_s_EcoGame.database_manager
+    
     module_base: interactions.SlashCommand = interactions.SlashCommand(
         name="core_economy_system",
         description="Minimize Core For Economy Simulation"
