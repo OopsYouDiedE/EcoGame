@@ -35,7 +35,7 @@ import aiofiles.ospath
 import aiofiles.os
 import aioshutil
 from aiocsv import AsyncReader, AsyncDictReader, AsyncWriter, AsyncDictWriter
-from . importdatabase_manager
+from . import database_manager
 
 class CoreEconomySystem(interactions.Extension):
     
@@ -67,11 +67,11 @@ class CoreEconomySystem(interactions.Extension):
     )
     async def command_give_item(self, ctx: interactions.SlashContext, user_id: str, object_name: str, quantity: int = 1):
         await ctx.send(f"DEBUG:将{object_name}*{quantity}给予{user_id}")
-        await ctx.send(f"DEBUG:交易前{user_id},有{query_item(user_id, object_name)}个{object_name}")
+        await ctx.send(f"DEBUG:交易前{user_id},有{database_manager.query_item(user_id, object_name)}个{object_name}")
         database_manager.update_item(user_id, object_name, quantity)
 
         await ctx.send(f"DEBUG:将{object_name}*{quantity}给予{user_id}")
-        await ctx.send(f"DEBUG:交易后{user_id},有{query_item(user_id, object_name)}个{object_name}")
+        await ctx.send(f"DEBUG:交易后{user_id},有{database_manager.query_item(user_id, object_name)}个{object_name}")
 
     # 管理员指令：将某人的某些物品强制性转移给另一个人。
     @module_base.subcommand("send",
@@ -103,8 +103,8 @@ class CoreEconomySystem(interactions.Extension):
     )
     async def command_send_item(self, ctx: interactions.SlashContext, sender_id: str, receiver_id: str,
                                 object_name: str, quantity: int = 1):
-        await ctx.send(f"DEBUG:交易前{sender_id},有{query_item(sender_id, object_name)}个{object_name}")
-        update_item(sender_id, object_name, -quantity)
-        update_item(receiver_id, object_name, quantity)
-        await ctx.send(f"DEBUG:交易后{sender_id},有{query_item(sender_id, object_name)}个{object_name}")
+        await ctx.send(f"DEBUG:交易前{sender_id},有{database_manager.query_item(sender_id, object_name)}个{object_name}")
+        database_manager.update_item(sender_id, object_name, -quantity)
+        database_manager.update_item(receiver_id, object_name, quantity)
+        await ctx.send(f"DEBUG:交易后{sender_id},有{database_manager.query_item(sender_id, object_name)}个{object_name}")
 
