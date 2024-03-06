@@ -124,7 +124,7 @@ class CoreEconomySystem(interactions.Extension):
         required=True,
         opt_type=interactions.OptionType.NUMBER,
     )
-    async def command_give_item(self, ctx: interactions.SlashContext, user_id: str, object_name: str, quantity: float = 1):
+    async def command_give_item(self, ctx: interactions.SlashContext, user_id: str, object_name: str, quantity: int = 1):
         await ctx.send(f"DEBUG:将{object_name}*{quantity}给予{user_id}")
         await ctx.send(f"DEBUG:交易前{user_id},有{query_item(user_id, object_name)}个{object_name}")
         database_manager.update_item(user_id, object_name, quantity)
@@ -160,7 +160,7 @@ class CoreEconomySystem(interactions.Extension):
         required=True,
         opt_type=interactions.OptionType.INTEGER,
     )
-    async def command_give_item(self, ctx: interactions.SlashContext, sender_id: str, receiver_id: str,
+    async def command_send_item(self, ctx: interactions.SlashContext, sender_id: str, receiver_id: str,
                                 object_name: str, quantity: int = 1):
         await ctx.send(f"DEBUG:交易前{sender_id},有{query_item(sender_id, object_name)}个{object_name}")
         update_item(sender_id, object_name, -quantity)
