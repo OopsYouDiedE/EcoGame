@@ -35,7 +35,7 @@ import aiofiles.ospath
 import aiofiles.os
 import aioshutil
 from aiocsv import AsyncReader, AsyncDictReader, AsyncWriter, AsyncDictWriter
-import database_manager
+from . import database_manager
 database_manager.update_item('a', 'apple', -30)
 database_manager.query_item('a', 'apple')
 
