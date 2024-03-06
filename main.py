@@ -38,6 +38,7 @@ import aioshutil
 from aiocsv import AsyncReader, AsyncDictReader, AsyncWriter, AsyncDictWriter
 
 class CoreEconomySystem(interactions.Extension):
+    import database_manager
     module_base: interactions.SlashCommand = interactions.SlashCommand(
         name="core_economy_system",
         description="Minimize Core For Economy Simulation"
