@@ -38,33 +38,63 @@ from aiocsv import AsyncReader, AsyncDictReader, AsyncWriter, AsyncDictWriter
 '''
 Core of Economy System
 '''
+
+
 class CoreEconomySystem(interactions.Extension):
     module_base: interactions.SlashCommand = interactions.SlashCommand(
         name="core_economy_system",
         description="Minimize Core For Economy Simulation"
     )
+
     # 管理员指令：添加指定数量的物品给某人。
-    @module_base.subcommand("give", sub_cmd_description="Give @member @object @number.Only for owner.")
+    @module_base.subcommand("give", sub_cmd_description="Provide a specific quantity of items to a user.")
     @interactions.check(interactions.is_owner())
     @interactions.slash_option(
-        name = "id",
-        description = "id of the member.Default to owner.",
-        required = True,
-        opt_type = interactions.OptionType.USER
+        name="id",
+        description="id of the member.",
+        required=True,
+        opt_type=interactions.OptionType.USER
     )
     @interactions.slash_option(
-        name = "object_name",
-        description = "Name of the object. Default to coins.",
-        required = False,
-        opt_type = interactions.OptionType.STRING
+        name="object_name",
+        description="Name of the object.",
+        required=True,
+        opt_type=interactions.OptionType.STRING
     )
     @interactions.slash_option(
-        name = "quantity",
-        description = "Quantity of the object given.",
-        required = False,
-        opt_type = interactions.OptionType.INTEGER,
+        name="quantity",
+        description="Quantity of the object given.",
+        required=True,
+        opt_type=interactions.OptionType.INTEGER,
     )
-    async def command_give_item(self, ctx: interactions.SlashContext, id: str, object_name: str,quantity:int=1):
+    async def command_give_item(self, ctx: interactions.SlashContext, id: str, object_name: str, quantity: int = 1):
         await ctx.send(f"DEBUG:将{object_name}*{quantity}给予{id}")
 
-
+    @module_base.subcommand("send", sub_cmd_description="Transfer a specific quantity of items from one user to another.")
+    @interactions.check(interactions.is_owner())
+    @interactions.slash_option(
+        name="sender_id",
+        description="id of the member send items.",
+        required=True,
+        opt_type=interactions.OptionType.USER
+    )
+    @interactions.slash_option(
+        name="receiver_id",
+        description="id of the member receive items.",
+        required=True,
+        opt_type=interactions.OptionType.USER
+    )
+    @interactions.slash_option(
+        name="object_name",
+        description="Name of the object.",
+        required=True,
+        opt_type=interactions.OptionType.STRING
+    )
+    @interactions.slash_option(
+        name="quantity",
+        description="Quantity of the object given.",
+        required=True,
+        opt_type=interactions.OptionType.INTEGER,
+    )
+    async def command_give_item(self, ctx: interactions.SlashContext, sender_id: str,receiver_id:str, object_name: str, quantity: int = 1):
+        await ctx.send(f"DEBUG:将{object_name}*{quantity}从{sender_id}转移到{receiver_id}")
